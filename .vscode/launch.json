@@ -5,12 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Solve puzzle 1",
+            "name": "Solve 1",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/solve.py",
             "args": [
                 "1"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "2"
             ],
             "console": "integratedTerminal"
         }
