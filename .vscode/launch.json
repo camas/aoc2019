@@ -23,6 +23,16 @@
                 "2"
             ],
             "console": "integratedTerminal"
-        }
+        },
+        {
+            "name": "Solve 3",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "3"
+            ],
+            "console": "integratedTerminal"
+        },
     ]
 }
