@@ -20,7 +20,7 @@ def main():
 
     for puzzle in args.puzzles:
         solver = importlib.import_module(f"{puzzle}.solution")
-        if solver.tests:
+        if "tests" in dir(solver):
             tests = solver.tests()
             print(f"Running {len(tests)} tests")
             fail = False
