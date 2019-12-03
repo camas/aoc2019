@@ -6,6 +6,8 @@ My solutions for <https://adventofcode.com/2019/>
 
 Files for each solution are in their respectively numbered folder
 
+Question markdown is generated using [a userscript](https://gist.github.com/camas/99a447e432eabbb2a88968bbad8b0cc7)
+
 Use `solve.py` to run solutions. VSCode launch configs are also provided
 
 For each solution `solve.py` calls `solve(data: str)` to run inputs and `tests() -> List[Tuple[str, str]]` to get test data
