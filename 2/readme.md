@@ -1,5 +1,4 @@
-\--- Day 2: 1202 Program Alarm ---
-----------------------------------
+## Day 2: 1202 Program Alarm
 
 On the way to your [gravity assist](https://en.wikipedia.org/wiki/Gravity_assist) around the Moon, your ship computer beeps angrily about a "[1202 program alarm](https://www.hq.nasa.gov/alsj/a11/a11.landing.html#1023832)". On the radio, an Elf is already explaining how to handle the situation: "Don't worry, that's perfectly norma--" The ship computer [bursts into flames](https://en.wikipedia.org/wiki/Halt_and_Catch_Fire).
 
@@ -54,8 +53,7 @@ Here are the initial and final states of a few more small programs:
 
 Once you have a working computer, the first step is to restore the gravity assist program (your puzzle input) to the "1202 program alarm" state it had just before the last computer caught fire. To do this, __before running the program__, replace position `1` with the value `12` and replace position `2` with the value `2`. __What value is left at position `0`__ after the program halts?
 
-\--- Part Two ---
------------------
+## Part Two
 
 "Good, the new computer seems to be working correctly! __Keep it nearby__ during this mission - you'll probably use it again. Real Intcode computers support many more features than your new one, but we'll let you know what they are as you need them."
 
