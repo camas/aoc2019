@@ -20,6 +20,20 @@ def main():
 
     for puzzle in args.puzzles:
         solver = importlib.import_module(f"{puzzle}.solution")
+        if solver.tests:
+            tests = solver.tests()
+            print(f"Running {len(tests)} tests")
+            fail = False
+            for i, test in enumerate(tests, 1):
+                test_input, test_solution = test
+                if solver.solve(test_input) != test_solution:
+                    print(f"Failed test {i}")
+                    fail = True
+                else:
+                    print(f"Test {i} passed")
+            if fail:
+                raise Exception("Tests didn't pass!")
+
         answer = solver.solve(read_input(puzzle))
         print(f"Solution to {puzzle} is {answer}")
         if len(args.puzzles) == 1:
