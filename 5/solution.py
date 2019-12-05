@@ -125,7 +125,7 @@ class Machine:
         if mode == 0:
             self._memory[p] = value
         elif mode == 1:
-            raise Exception("Can't write in immidiate mode")
+            raise Exception("Can't write in immediate mode")
         else:
             raise Exception("Unknown mode")
 
