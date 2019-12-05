@@ -1,0 +1,10 @@
+[package]
+name = "aoc2019"
+version = "0.1.0"
+authors = ["Camas"]
+edition = "2018"
+build = "build.rs"
+
+[[bin]]
+name = "solve"
+path = "solve.rs"

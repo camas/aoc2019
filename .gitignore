@@ -30,3 +30,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Rust
+/target/
+#Cargo.lock
+**/*.rs.bk
