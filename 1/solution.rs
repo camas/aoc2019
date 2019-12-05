@@ -27,7 +27,7 @@ pub mod question1 {
             }
         }
 
-        println!("Result: {} {}", total1, total2);
-        return format!("TODO");
+        // Return results
+        return format!("Result: {} {}", total1, total2);
     }
 }
