@@ -30,7 +30,7 @@ pub mod question2 {
             }
         }
 
-        // Return solutions
+        // Return solution
         return format!("{} {}", part1, part2);
     }
 }

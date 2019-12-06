@@ -33,6 +33,328 @@
             "preLaunchTask": "RustBuild",
         },
         {
+            "name": "Solve 3 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "3"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 4 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "4"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 5 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "5"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 6 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "6"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 7 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "7"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 8 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "8"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 9 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "9"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 10 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "10"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 11 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "11"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 12 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "12"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 13 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "13"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 14 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "14"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 15 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "15"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 16 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "16"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 17 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "17"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 18 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "18"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 19 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "19"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 20 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "20"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 21 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "21"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 22 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "22"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 23 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "23"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 24 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "24"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
+            "name": "Solve 25 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "25"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
             "name": "Solve 1 Python",
             "type": "python",
             "request": "launch",
