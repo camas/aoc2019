@@ -404,5 +404,205 @@
             ],
             "console": "integratedTerminal"
         },
+        {
+            "name": "Solve 6 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "6"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 7 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "7"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 8 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "8"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 9 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "9"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 10 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "10"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 11 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "11"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 12 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "12"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 13 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "13"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 14 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "14"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 15 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "15"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 16 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "16"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 17 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "17"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 18 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "18"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 19 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "19"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 20 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "20"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 21 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "21"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 22 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "22"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 23 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "23"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 24 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "24"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Solve 25 Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/solve.py",
+            "args": [
+                "25"
+            ],
+            "console": "integratedTerminal"
+        },
     ]
 }
