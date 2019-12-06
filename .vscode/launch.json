@@ -19,6 +19,20 @@
             "preLaunchTask": "RustBuild",
         },
         {
+            "name": "Solve 2 Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/solve",
+            "args": [
+                "2"
+            ],
+            "cwd": "${workspaceRoot}",
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "RustBuild",
+        },
+        {
             "name": "Solve 1 Python",
             "type": "python",
             "request": "launch",

@@ -12,3 +12,5 @@ path = "solve.rs"
 [dependencies]
 clap = "2.33.0"
 clipboard = "0.5.0"
+num-derive = "0.3"
+num-traits = "0.2"

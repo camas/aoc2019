@@ -1,5 +1,4 @@
-extern crate clap;
-extern crate clipboard;
+mod common;
 
 use clap::{App, AppSettings, Arg};
 use clipboard::{ClipboardContext, ClipboardProvider};
