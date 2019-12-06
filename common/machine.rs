@@ -14,7 +14,7 @@ impl Machine {
     }
 
     // Run the machine until halt
-    pub fn run(&mut self, input: fn() -> i64, output: fn(i64)) {
+    pub fn run(&mut self, mut input: impl FnMut() -> i64, mut output: impl FnMut(i64)) {
         use Instr::*;
 
         // Create instruction sizes map
@@ -54,6 +54,7 @@ impl Machine {
                     modes[diff + i] = digits[i];
                 }
             }
+            modes.reverse();
             // Memory access helpers
             macro_rules! read_mem {
                 ($index:expr) => {{
@@ -83,7 +84,34 @@ impl Machine {
                 Halt => break,
                 Add => write_mem!(2, read_mem!(0) + read_mem!(1)),
                 Mult => write_mem!(2, read_mem!(0) * read_mem!(1)),
-                _ => panic!("Instruction {:?} not implemented", instr),
+                Input => write_mem!(0, input()),
+                Output => output(read_mem!(0)),
+                JumpTrue => {
+                    if read_mem!(0) != 0 {
+                        ip = read_mem!(1) as usize;
+                        continue;
+                    }
+                }
+                JumpFalse => {
+                    if read_mem!(0) == 0 {
+                        ip = read_mem!(1) as usize;
+                        continue;
+                    }
+                }
+                LessThan => {
+                    if read_mem!(0) < read_mem!(1) {
+                        write_mem!(2, 1);
+                    } else {
+                        write_mem!(2, 0);
+                    }
+                }
+                Equals => {
+                    if read_mem!(0) == read_mem!(1) {
+                        write_mem!(2, 1);
+                    } else {
+                        write_mem!(2, 0);
+                    }
+                } //_ => panic!("Instruction {:?} not implemented", instr),
             }
 
             ip += instr_size + 1;
