@@ -23,7 +23,6 @@ class Node:
 
 def solve(data: str) -> str:
     nodes = {}
-    root = None
     for line in data.splitlines():
         a, b = line.split(')')
         if a in nodes:
@@ -37,9 +36,6 @@ def solve(data: str) -> str:
             nb = Node()
             nodes[b] = nb
         nb._parent = na
-
-        if a == 'COM':
-            root = na
 
     # Part 1
     # Brute force
