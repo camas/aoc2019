@@ -4,17 +4,29 @@ use std::collections::HashMap;
 
 pub struct Machine {
     memory: Vec<i64>,
+    ip: usize, // Instruction pointer
 }
 
 impl Machine {
     pub fn new(mem: &[i64]) -> Machine {
         return Machine {
             memory: mem.to_vec().clone(),
+            ip: 0,
         };
     }
 
-    // Run the machine until halt
-    pub fn run(&mut self, mut input: impl FnMut() -> i64, mut output: impl FnMut(i64)) {
+    pub fn run(&mut self, input: impl FnMut() -> i64, output: impl FnMut(i64)) {
+        self.run_until(Instr::Halt, input, output);
+    }
+
+    // Run the machine until after given instruction
+    // Returns true if return after given instruction, false if halt instruction
+    pub fn run_until(
+        &mut self,
+        halt_instr: Instr,
+        mut input: impl FnMut() -> i64,
+        mut output: impl FnMut(i64),
+    ) -> bool {
         use Instr::*;
 
         // Create instruction sizes map
@@ -30,10 +42,19 @@ impl Machine {
         instr_sizes.insert(Equals, 3);
 
         // Main loop
-        let mut ip: usize = 0; // Instruction pointer
+        let mut last_instr: Option<Instr> = None;
         loop {
+            // Check if halt instr
+            match last_instr {
+                Some(x) => {
+                    if x == halt_instr {
+                        return true;
+                    }
+                }
+                _ => (),
+            }
             // Parse opcode
-            let raw_opcode = self.memory[ip];
+            let raw_opcode = self.memory[self.ip];
             let digits = get_digits(raw_opcode);
             let opcode_i = if digits.len() == 1 {
                 *digits.last().unwrap()
@@ -42,7 +63,7 @@ impl Machine {
             };
             let instr: Instr = FromPrimitive::from_i64(opcode_i).unwrap();
             let instr_size = instr_sizes[&instr];
-            let values: Vec<i64> = self.memory[ip + 1..ip + 1 + instr_size]
+            let values: Vec<i64> = self.memory[self.ip + 1..self.ip + 1 + instr_size]
                 .iter()
                 .cloned()
                 .collect();
@@ -79,22 +100,25 @@ impl Machine {
                 }};
             }
 
+            // Update last_instr. Not used below
+            last_instr = Some(instr);
+
             // Run instruction
             match instr {
-                Halt => break,
+                Halt => return false,
                 Add => write_mem!(2, read_mem!(0) + read_mem!(1)),
                 Mult => write_mem!(2, read_mem!(0) * read_mem!(1)),
                 Input => write_mem!(0, input()),
                 Output => output(read_mem!(0)),
                 JumpTrue => {
                     if read_mem!(0) != 0 {
-                        ip = read_mem!(1) as usize;
+                        self.ip = read_mem!(1) as usize;
                         continue;
                     }
                 }
                 JumpFalse => {
                     if read_mem!(0) == 0 {
-                        ip = read_mem!(1) as usize;
+                        self.ip = read_mem!(1) as usize;
                         continue;
                     }
                 }
@@ -114,7 +138,7 @@ impl Machine {
                 } //_ => panic!("Instruction {:?} not implemented", instr),
             }
 
-            ip += instr_size + 1;
+            self.ip += instr_size + 1;
         }
     }
 
@@ -128,7 +152,7 @@ impl Machine {
 }
 
 #[derive(FromPrimitive, Clone, Copy, PartialEq, Eq, Hash, Debug)]
-enum Instr {
+pub enum Instr {
     Halt = 99,
     Add = 1,
     Mult = 2,
