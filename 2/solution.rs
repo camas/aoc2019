@@ -12,21 +12,17 @@ pub mod question2 {
         let part1 = machine.get_mem(0);
 
         // Part 2
-        let mut found = false;
         let mut part2 = 0;
-        for noun in 1..100 {
+        'noun: for noun in 1..100 {
             for verb in 1..100 {
                 let mut test_machine = Machine::new(&mem);
                 test_machine.set_mem(1, noun);
                 test_machine.set_mem(2, verb);
                 test_machine.run(|| 1, |_| {});
                 if test_machine.get_mem(0) == 19690720 {
-                    found = true;
                     part2 = 100 * noun + verb;
+                    break 'noun;
                 }
-            }
-            if found {
-                break;
             }
         }
 
