@@ -1,7 +1,6 @@
 mod common;
 
 use clap::{App, AppSettings, Arg};
-use clipboard::{ClipboardContext, ClipboardProvider};
 use std::collections::HashMap;
 use std::fs::File;
 use std::io;
@@ -20,10 +19,7 @@ fn main() {
 
     let qs = matches.values_of_lossy("questions");
     match qs {
-        Some(x) => {
-            run_solutions(x);
-            return;
-        }
+        Some(x) => run_solutions(x),
         None => (),
     }
 }
@@ -36,11 +32,35 @@ fn run_solutions(qs: Vec<String>) {
         println!("Solution to {} is {}", q, solution);
         // Copy to clipboard
         if qs.len() == 1 {
-            let mut clip: ClipboardContext = ClipboardProvider::new().unwrap();
-            clip.set_contents(solution).unwrap();
+            set_clipboard(&solution);
             println!("Copied to clipboard");
         }
     }
+}
+
+#[cfg(target_os = "linux")]
+// Copies to clipboard using xclip
+fn set_clipboard(text: &str) {
+    use std::io::{BufWriter, Write};
+    use std::process::{Command, Stdio};
+
+    let xclip = Command::new("xclip")
+        .arg("-selection")
+        .arg("clipboard")
+        .stdin(Stdio::piped())
+        .spawn()
+        .unwrap();
+    let xclip_in = xclip.stdin.unwrap();
+    let mut w = BufWriter::new(xclip_in);
+    w.write_all(text.as_bytes()).unwrap();
+}
+
+#[cfg(not(target_os = "linux"))]
+// Copies to clipboard using clipboard library
+fn set_clipboard(text: &str) {
+    use clipboard::{ClipboardContext, ClipboardProvider};
+    let mut clip: ClipboardContext = ClipboardProvider::new().unwrap();
+    clip.set_contents(solution).unwrap();
 }
 
 // Reads the input.txt for a given question
