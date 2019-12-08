@@ -39,33 +39,34 @@ mod question7 {
                 let m = Machine::new(&mem);
                 machines.push(m);
             }
-            // Loop until E halts
+            // Loops until E halts
             let mut first_loop = true;
-            let mut outputs = vec![0];
-            'machine: loop {
+            let mut pipe = vec![0]; // Stores values piped between machines
+            loop {
                 let mut res = true;
                 for i in 0..machines.len() {
                     let m = &mut machines[i];
+                    // If first loop, pass phase as first input by adding it to the pipe
                     if first_loop {
-                        // If first loop, pass phase first
-                        outputs.push(*phases[i]);
+                        pipe.push(*phases[i]);
                     }
-                    let in_func = || outputs.pop().unwrap();
+                    let in_func = || pipe.pop().unwrap();
                     // Create temp output storage
                     let mut outputs_tmp = Vec::new();
                     let out_func = |x| outputs_tmp.push(x);
+                    // Run machine until it outputs
                     res = m.run_until(Instr::Output, in_func, out_func);
 
-                    // Merge temp outputs back
-                    outputs.append(&mut outputs_tmp);
+                    // Add outputs to pipe
+                    pipe.append(&mut outputs_tmp);
                 }
                 first_loop = false;
                 if !res {
-                    let final_val = outputs.pop().unwrap();
+                    let final_val = pipe.pop().unwrap();
                     if final_val > highest_f_signal {
                         highest_f_signal = final_val;
                     }
-                    break 'machine;
+                    break;
                 }
             }
         }
