@@ -6,7 +6,10 @@
         {
             "label": "RustBuild",
             "type": "shell",
-            "command": "cargo build"
-        }
+            "command": "cargo",
+            "args": [
+                "build"
+            ],
+        },
     ]
 }

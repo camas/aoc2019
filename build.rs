@@ -26,7 +26,7 @@ fn main() {
         f.write_all(line.as_bytes()).unwrap();
     }
 
-    // Write get_question()
+    // Write get_questions()
     f.write_all(b"pub fn get_questions() -> HashMap<String, fn(Vec<String>) -> String> {\n")
         .unwrap();
     f.write_all(
