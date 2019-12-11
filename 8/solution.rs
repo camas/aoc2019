@@ -1,5 +1,5 @@
 mod question8 {
-    pub fn solve(data: Vec<String>) -> String {
+    pub fn solve(data: Vec<&str>) -> String {
         // Picture consts
         const WIDTH: i32 = 25;
         const HEIGHT: i32 = 6;

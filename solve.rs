@@ -28,7 +28,9 @@ fn run_solutions(qs: Vec<String>) {
     println!("Running {} solutions", qs.len());
     let questions = get_questions();
     for q in &qs {
-        let solution = questions.get(q).unwrap()(read_input(q).unwrap());
+        let input = read_input(q).unwrap();
+        let input_ref = input.iter().map(AsRef::as_ref).collect();
+        let solution = questions.get(q).unwrap()(input_ref);
         println!("Solution to {} is {}", q, solution);
         // Copy to clipboard
         if qs.len() == 1 {
@@ -68,9 +70,9 @@ fn read_input(question: &str) -> io::Result<Vec<String>> {
     let input_str = format!("{}/input.txt", question);
     let input_path = Path::new(&input_str);
     let reader = BufReader::new(File::open(input_path)?);
-    let mut lines = Vec::new();
+    let mut lines: Vec<_> = Vec::new();
     for line in reader.lines() {
         lines.push(line?);
     }
-    return Ok(lines);
+    Ok(lines)
 }

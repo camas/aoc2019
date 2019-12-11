@@ -1,7 +1,7 @@
 pub mod question6 {
     use std::collections::{HashMap, HashSet};
 
-    pub fn solve(data: Vec<String>) -> String {
+    pub fn solve(data: Vec<&str>) -> String {
         // Parse input
         let mut nodes: HashSet<_> = HashSet::new();
         let mut orbits: HashMap<_, _> = HashMap::new();

@@ -25,12 +25,13 @@ fn main() {
         );
         f.write_all(line.as_bytes()).unwrap();
     }
+    f.write(b"\n").unwrap();
 
     // Write get_questions()
-    f.write_all(b"pub fn get_questions() -> HashMap<String, fn(Vec<String>) -> String> {\n")
+    f.write_all(b"pub fn get_questions() -> HashMap<String, fn(Vec<&str>) -> String> {\n")
         .unwrap();
     f.write_all(
-        b"    let mut questions: HashMap<String, fn(Vec<String>) -> String> = HashMap::new();\n",
+        b"    let mut questions: HashMap<String, fn(Vec<&str>) -> String> = HashMap::new();\n",
     )
     .unwrap();
     for sol in &sols {

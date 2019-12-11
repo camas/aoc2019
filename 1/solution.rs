@@ -1,5 +1,5 @@
 pub mod question1 {
-    pub fn solve(data: Vec<String>) -> String {
+    pub fn solve(data: Vec<&str>) -> String {
         // Parse input
         let masses: Vec<i64> = data.iter().map(|x| x.parse().unwrap()).collect();
 

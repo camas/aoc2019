@@ -1,5 +1,5 @@
 mod question4 {
-    pub fn solve(data: Vec<String>) -> String {
+    pub fn solve(data: Vec<&str>) -> String {
         // Parse input
         let range_ints: Vec<_> = data[0].split('-').map(|x| x.parse().unwrap()).collect();
         let min = range_ints[0];

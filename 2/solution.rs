@@ -1,6 +1,6 @@
 pub mod question2 {
     use crate::common::machine::Machine;
-    pub fn solve(data: Vec<String>) -> String {
+    pub fn solve(data: Vec<&str>) -> String {
         // Parse data
         let mem: Vec<_> = data[0].split(',').map(|x| x.parse().unwrap()).collect();
 

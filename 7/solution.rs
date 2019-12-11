@@ -3,7 +3,7 @@ mod question7 {
     use crate::common::machine::Machine;
     use itertools::Itertools;
 
-    pub fn solve(data: Vec<String>) -> String {
+    pub fn solve(data: Vec<&str>) -> String {
         // Parse input
         let mem: Vec<i64> = data[0].split(',').map(|x| x.parse().unwrap()).collect();
 
