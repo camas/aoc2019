@@ -43,7 +43,7 @@ pub mod question3 {
                     cury += dist;
                 }
                 b'D' => {
-                    for i in ((cury - dist - 1)..(cury - 1)).rev() {
+                    for i in ((cury - dist)..(cury)).rev() {
                         output.insert((curx, i), walked);
                         walked += 1;
                     }
@@ -57,7 +57,7 @@ pub mod question3 {
                     curx += dist;
                 }
                 b'L' => {
-                    for i in ((curx - dist - 1)..(curx - 1)).rev() {
+                    for i in ((curx - dist)..(curx)).rev() {
                         output.insert((i, cury), walked);
                         walked += 1;
                     }
