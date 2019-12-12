@@ -5,8 +5,8 @@ pub mod question3 {
         let path1 = travel(&data[0]);
         let path2 = travel(&data[1]);
 
-        let mut closest_man = 9000000000;
-        let mut closest_walk = 9000000000;
+        let mut closest_man = 9_000_000_000;
+        let mut closest_walk = 9_000_000_000;
         for (key, walk1) in &path1 {
             if !path2.contains_key(key) {
                 continue;
@@ -36,28 +36,28 @@ pub mod question3 {
             let dist: i64 = instr[1..].parse().unwrap();
             match instr.as_bytes()[0] {
                 b'U' => {
-                    for i in (cury + 1)..(cury + dist + 1) {
+                    for i in cury + 1..=cury + dist {
                         output.insert((curx, i), walked);
                         walked += 1;
                     }
                     cury += dist;
                 }
                 b'D' => {
-                    for i in ((cury - dist)..(cury)).rev() {
+                    for i in (cury - dist..cury).rev() {
                         output.insert((curx, i), walked);
                         walked += 1;
                     }
                     cury -= dist;
                 }
                 b'R' => {
-                    for i in (curx + 1)..(curx + dist + 1) {
+                    for i in curx + 1..=curx + dist {
                         output.insert((i, cury), walked);
                         walked += 1;
                     }
                     curx += dist;
                 }
                 b'L' => {
-                    for i in ((curx - dist)..(curx)).rev() {
+                    for i in (curx - dist..curx).rev() {
                         output.insert((i, cury), walked);
                         walked += 1;
                     }
@@ -67,7 +67,7 @@ pub mod question3 {
             }
         }
 
-        return output;
+        output
     }
 
     #[cfg(test)]

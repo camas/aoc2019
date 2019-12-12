@@ -18,9 +18,8 @@ fn main() {
         .get_matches();
 
     let qs = matches.values_of_lossy("questions");
-    match qs {
-        Some(x) => run_solutions(x),
-        None => (),
+    if let Some(x) = qs {
+        run_solutions(x);
     }
 }
 
@@ -66,7 +65,7 @@ fn set_clipboard(text: &str) {
 }
 
 // Reads the input.txt for a given question
-fn read_input(question: &str) -> io::Result<Vec<String>> {
+pub fn read_input(question: &str) -> io::Result<Vec<String>> {
     let input_str = format!("{}/input.txt", question);
     let input_path = Path::new(&input_str);
     let reader = BufReader::new(File::open(input_path)?);

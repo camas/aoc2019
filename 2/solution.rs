@@ -19,7 +19,7 @@ pub mod question2 {
                 test_machine.set_mem(1, noun);
                 test_machine.set_mem(2, verb);
                 test_machine.run(|| 1, |_| {});
-                if test_machine.get_mem(0) == 19690720 {
+                if test_machine.get_mem(0) == 19_690_720 {
                     part2 = 100 * noun + verb;
                     break 'noun;
                 }
@@ -27,6 +27,6 @@ pub mod question2 {
         }
 
         // Return solution
-        return format!("{} {}", part1, part2);
+        format!("{} {}", part1, part2)
     }
 }

@@ -43,7 +43,7 @@ pub mod question6 {
                 chain.push(cur);
             }
 
-            return chain;
+            chain
         }
         let w1 = walk("YOU", &orbits);
         let w2 = walk("SAN", &orbits);

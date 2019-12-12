@@ -2,6 +2,7 @@ use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use std::collections::HashMap;
 use std::ops::Range;
+use Instr::*;
 
 const MEM_CHUNK_SIZE: usize = 1000;
 
@@ -13,11 +14,11 @@ pub struct Machine {
 
 impl Machine {
     pub fn new(mem: &[i64]) -> Machine {
-        return Machine {
+        Machine {
             memory: Memory::from(&mem),
             ip: 0,
             rel_base: 0,
-        };
+        }
     }
 
     pub fn run(&mut self, input: impl FnMut() -> i64, output: impl FnMut(i64)) {
@@ -26,38 +27,21 @@ impl Machine {
 
     // Run the machine until after given instruction
     // Returns true if return after given instruction, false if halt instruction
+    #[allow(clippy::cognitive_complexity)]
     pub fn run_until(
         &mut self,
         halt_instr: Instr,
         mut input: impl FnMut() -> i64,
         mut output: impl FnMut(i64),
     ) -> bool {
-        use Instr::*;
-
-        // Create instruction sizes map
-        let mut instr_sizes = HashMap::new();
-        instr_sizes.insert(Halt, 0);
-        instr_sizes.insert(Add, 3);
-        instr_sizes.insert(Mult, 3);
-        instr_sizes.insert(Input, 1);
-        instr_sizes.insert(Output, 1);
-        instr_sizes.insert(JumpTrue, 2);
-        instr_sizes.insert(JumpFalse, 2);
-        instr_sizes.insert(LessThan, 3);
-        instr_sizes.insert(Equals, 3);
-        instr_sizes.insert(RelBase, 1);
-
         // Main loop
         let mut last_instr: Option<Instr> = None;
         loop {
             // Check if halt instr
-            match last_instr {
-                Some(x) => {
-                    if x == halt_instr {
-                        return true;
-                    }
+            if let Some(x) = last_instr {
+                if x == halt_instr {
+                    return true;
                 }
-                _ => (),
             }
             // Parse opcode
             let raw_opcode = self.get_mem(self.ip);
@@ -68,21 +52,17 @@ impl Machine {
                 digits[digits.len() - 2] * 10 + digits.last().unwrap()
             };
             let instr: Instr = FromPrimitive::from_i64(opcode_i).unwrap();
-            let instr_size = instr_sizes[&instr];
+            let instr_size = Machine::get_instruction_size(instr);
             let values: Vec<i64> = self
                 .get_mem_range(self.ip + 1..self.ip + 1 + instr_size)
-                .iter()
-                .cloned()
-                .collect();
+                .to_vec();
             // Extract modes
             let mut modes = vec![0; instr_size];
-            let diff = modes.len() + 2 - digits.len();
             if digits.len() > 2 {
-                for i in 0..(digits.len() - 2) {
-                    modes[diff + i] = digits[i];
-                }
+                let diff = modes.len() + 2 - digits.len();
+                modes[diff..].clone_from_slice(&digits[..digits.len() - 2]);
+                modes.reverse();
             }
-            modes.reverse();
             // Memory access helpers
             // Modes:
             // 0 - position mode - val points to a position in memory
@@ -166,6 +146,21 @@ impl Machine {
         }
     }
 
+    fn get_instruction_size(instr: Instr) -> usize {
+        match instr {
+            Halt => 0,
+            Add => 3,
+            Mult => 3,
+            Input => 1,
+            Output => 1,
+            JumpTrue => 2,
+            JumpFalse => 2,
+            LessThan => 3,
+            Equals => 3,
+            RelBase => 1,
+        }
+    }
+
     pub fn set_mem(&mut self, index: usize, value: i64) {
         self.memory.set(index, value);
     }
@@ -204,18 +199,14 @@ impl Memory {
     pub fn get(&mut self, index: usize) -> i64 {
         let chunk_index = index / MEM_CHUNK_SIZE;
         let chunk_offset = index % MEM_CHUNK_SIZE;
-        if !self.data.contains_key(&chunk_index) {
-            self.data.insert(chunk_index, [0; MEM_CHUNK_SIZE]);
-        }
+        self.data.entry(chunk_index).or_insert([0; MEM_CHUNK_SIZE]);
         self.data[&chunk_index][chunk_offset]
     }
 
     pub fn set(&mut self, index: usize, value: i64) {
         let chunk_index = index / MEM_CHUNK_SIZE;
         let chunk_offset = index % MEM_CHUNK_SIZE;
-        if !self.data.contains_key(&chunk_index) {
-            self.data.insert(chunk_index, [0; MEM_CHUNK_SIZE]);
-        }
+        self.data.entry(chunk_index).or_insert([0; MEM_CHUNK_SIZE]);
         self.data.get_mut(&chunk_index).unwrap()[chunk_offset] = value;
     }
 }
@@ -244,7 +235,7 @@ fn get_digits(n: i64) -> Vec<i64> {
     }
     let mut xs = Vec::new();
     x_inner(n, &mut xs);
-    return xs;
+    xs
 }
 
 #[cfg(test)]
@@ -264,21 +255,29 @@ mod tests {
 
     #[test]
     fn test_large_number() {
-        let mem = vec![1102, 34915192, 34915192, 7, 4, 7, 99, 0];
+        let mem = vec![1102, 34_915_192, 34_915_192, 7, 4, 7, 99, 0];
         let mut m = Machine::new(&mem);
         let mut output = Vec::new();
         m.run(|| unreachable!(), |x| output.push(x));
 
-        assert!(output[0] == 1219070632396864, "Result was {}", output[0]);
+        assert!(
+            output[0] == 1_219_070_632_396_864,
+            "Result was {}",
+            output[0]
+        );
     }
 
     #[test]
     fn test_large_memory() {
-        let mem = vec![104, 1125899906842624, 99];
+        let mem = vec![104, 1_125_899_906_842_624, 99];
         let mut m = Machine::new(&mem);
         let mut output = Vec::new();
         m.run(|| unreachable!(), |x| output.push(x));
 
-        assert!(output[0] == 1125899906842624, "Result was {}", output[0]);
+        assert!(
+            output[0] == 1_125_899_906_842_624,
+            "Result was {}",
+            output[0]
+        );
     }
 }

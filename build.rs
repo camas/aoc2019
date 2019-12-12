@@ -41,5 +41,5 @@ fn main() {
         );
         f.write_all(line.as_bytes()).unwrap();
     }
-    f.write_all(b"    return questions;\n}\n").unwrap();
+    f.write_all(b"    questions\n}\n").unwrap();
 }

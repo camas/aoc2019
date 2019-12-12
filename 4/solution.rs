@@ -61,6 +61,6 @@ mod question4 {
         }
         let mut xs = Vec::new();
         x_inner(n, &mut xs);
-        return xs;
+        xs
     }
 }

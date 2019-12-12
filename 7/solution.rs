@@ -9,12 +9,12 @@ mod question7 {
 
         // Part 1: Find max thrust
         // Runs an amplifier machine and returns it's first output
-        fn run_amp(phase: i64, signal: i64, mem: &Vec<i64>) -> i64 {
+        fn run_amp(phase: i64, signal: i64, mem: &[i64]) -> i64 {
             let mut machine = Machine::new(&mem);
             let mut input = vec![signal, phase];
             let mut output = Vec::new();
             machine.run(|| input.pop().unwrap(), |x| output.push(x));
-            return output[0];
+            output[0]
         }
         let mut highest_signal: i64 = 0;
         for phases in [0, 1, 2, 3, 4].iter().permutations(5) {
