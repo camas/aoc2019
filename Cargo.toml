@@ -10,8 +10,10 @@ name = "solve"
 path = "solve.rs"
 
 [dependencies]
-clap = "2.33.0"
-clipboard = "0.5.0"
+clap = "2.33"
+clipboard = "0.5"
 num-derive = "0.3"
 num-traits = "0.2"
-itertools = "0.8.1"
+num-integer = "0.1"
+itertools = "0.8"
+impl_ops = "0.1"

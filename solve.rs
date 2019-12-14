@@ -1,5 +1,8 @@
 mod common;
 
+#[macro_use]
+extern crate impl_ops;
+
 use clap::{App, AppSettings, Arg};
 use std::collections::HashMap;
 use std::fs::File;
