@@ -1,4 +1,6 @@
 mod question4 {
+    use crate::common::get_digits;
+
     pub fn solve(data: Vec<&str>) -> String {
         // Parse input
         let range_ints: Vec<_> = data[0].split('-').map(|x| x.parse().unwrap()).collect();
@@ -49,18 +51,5 @@ mod question4 {
 
         // Return solutions
         return format!("{} {}", part1_count, part2_count);
-    }
-
-    // https://stackoverflow.com/a/41536521
-    fn get_digits(n: i32) -> Vec<i32> {
-        fn x_inner(n: i32, xs: &mut Vec<i32>) {
-            if n >= 10 {
-                x_inner(n / 10, xs);
-            }
-            xs.push(n % 10);
-        }
-        let mut xs = Vec::new();
-        x_inner(n, &mut xs);
-        xs
     }
 }
