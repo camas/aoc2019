@@ -1,3 +1,4 @@
+use crate::common::get_digits;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use std::collections::HashMap;
@@ -223,19 +224,6 @@ pub enum Instr {
     LessThan = 7,
     Equals = 8,
     RelBase = 9,
-}
-
-// https://stackoverflow.com/a/41536521
-fn get_digits(n: i64) -> Vec<i64> {
-    fn x_inner(n: i64, xs: &mut Vec<i64>) {
-        if n >= 10 {
-            x_inner(n / 10, xs);
-        }
-        xs.push(n % 10);
-    }
-    let mut xs = Vec::new();
-    x_inner(n, &mut xs);
-    xs
 }
 
 #[cfg(test)]
