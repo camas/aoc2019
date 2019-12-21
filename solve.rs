@@ -6,9 +6,6 @@ extern crate impl_ops;
 use crate::common::read_file;
 use clap::{App, AppSettings, Arg};
 use std::collections::HashMap;
-use std::fs::File;
-use std::io;
-use std::io::{BufRead, BufReader};
 use std::path::Path;
 
 // Import generated get_questions()
