@@ -1,5 +1,6 @@
 mod question13 {
     use crate::common::machine::{Instr, Machine};
+    use std::cmp::Ordering;
     use std::collections::{HashMap, VecDeque};
     use std::fmt;
 
@@ -99,12 +100,10 @@ mod question13 {
 
                 if value == 4 {
                     // Ball
-                    if x < last_paddle_x {
-                        current_dir = -1;
-                    } else if x > last_paddle_x {
-                        current_dir = 1;
-                    } else {
-                        current_dir = 0;
+                    match x.cmp(&last_paddle_x) {
+                        Ordering::Less => current_dir = -1,
+                        Ordering::Greater => current_dir = 1,
+                        Ordering::Equal => current_dir = 0,
                     }
                 } else if value == 3 {
                     last_paddle_x = x;

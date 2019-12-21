@@ -1,5 +1,6 @@
 mod question12 {
     use num_integer::Integer;
+    use std::cmp::Ordering;
     use std::collections::HashSet;
     use std::ops;
 
@@ -81,26 +82,38 @@ mod question12 {
                     let diff = &body2.position - &body1.position;
 
                     // Store changed velocity so not writing to bodies while looping
-                    if diff.x < 0 {
-                        diffs[i].x -= 1;
-                        diffs[j].x += 1;
-                    } else if diff.x > 0 {
-                        diffs[i].x += 1;
-                        diffs[j].x -= 1;
+                    match diff.x.cmp(&0) {
+                        Ordering::Less => {
+                            diffs[i].x -= 1;
+                            diffs[j].x += 1;
+                        }
+                        Ordering::Greater => {
+                            diffs[i].x += 1;
+                            diffs[j].x -= 1;
+                        }
+                        Ordering::Equal => (),
                     }
-                    if diff.y < 0 {
-                        diffs[i].y -= 1;
-                        diffs[j].y += 1;
-                    } else if diff.y > 0 {
-                        diffs[i].y += 1;
-                        diffs[j].y -= 1;
+                    match diff.y.cmp(&0) {
+                        Ordering::Less => {
+                            diffs[i].y -= 1;
+                            diffs[j].y += 1;
+                        }
+                        Ordering::Greater => {
+                            diffs[i].y += 1;
+                            diffs[j].y -= 1;
+                        }
+                        Ordering::Equal => (),
                     }
-                    if diff.z < 0 {
-                        diffs[i].z -= 1;
-                        diffs[j].z += 1;
-                    } else if diff.z > 0 {
-                        diffs[i].z += 1;
-                        diffs[j].z -= 1;
+                    match diff.z.cmp(&0) {
+                        Ordering::Less => {
+                            diffs[i].z -= 1;
+                            diffs[j].z += 1;
+                        }
+                        Ordering::Greater => {
+                            diffs[i].z += 1;
+                            diffs[j].z -= 1;
+                        }
+                        Ordering::Equal => (),
                     }
                 }
             }
