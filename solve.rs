@@ -3,6 +3,7 @@ mod common;
 #[macro_use]
 extern crate impl_ops;
 
+use crate::common::read_file;
 use clap::{App, AppSettings, Arg};
 use std::collections::HashMap;
 use std::fs::File;
@@ -21,10 +22,13 @@ fn main() {
         .arg(Arg::with_name("questions").multiple(true))
         .get_matches();
 
+    // Run all solutions
     if matches.is_present("all") {
         run_all();
         return;
     }
+
+    // Run specified solutions
     let qs = matches.values_of_lossy("questions");
     if let Some(x) = qs {
         run_solutions(x);
@@ -32,6 +36,7 @@ fn main() {
 }
 
 fn run_all() {
+    // Get available solutions by checking for input.txt
     let mut available = Vec::new();
     for i in 1..=25 {
         let input_str = format!("{}/input.txt", i);
@@ -47,8 +52,12 @@ fn run_solutions(qs: Vec<String>) {
     println!("Running {} solutions", qs.len());
     let questions = get_questions();
     for q in &qs {
-        let input = read_input(q).unwrap();
+        // Load input.txt
+        let input_path = format!("{}/input.txt", q);
+        let input = read_file(&input_path);
+        // Convert to ref. Lets tests use static strings as input
         let input_ref = input.iter().map(AsRef::as_ref).collect();
+        // Run solution
         let solution = questions.get(q).unwrap()(input_ref);
         println!("Solution to {} is {}", q, solution);
         // Copy to clipboard
@@ -82,16 +91,4 @@ fn set_clipboard(text: &str) {
     use clipboard::{ClipboardContext, ClipboardProvider};
     let mut clip: ClipboardContext = ClipboardProvider::new().unwrap();
     clip.set_contents(solution).unwrap();
-}
-
-// Reads the input.txt for a given question
-pub fn read_input(question: &str) -> io::Result<Vec<String>> {
-    let input_str = format!("{}/input.txt", question);
-    let input_path = Path::new(&input_str);
-    let reader = BufReader::new(File::open(input_path)?);
-    let mut lines: Vec<_> = Vec::new();
-    for line in reader.lines() {
-        lines.push(line?);
-    }
-    Ok(lines)
 }
