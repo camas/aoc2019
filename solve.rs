@@ -17,13 +17,30 @@ fn main() {
     // Parse args
     let matches = App::new("solve")
         .setting(AppSettings::ArgRequiredElseHelp)
+        .arg(Arg::with_name("all").long("all"))
         .arg(Arg::with_name("questions").multiple(true))
         .get_matches();
 
+    if matches.is_present("all") {
+        run_all();
+        return;
+    }
     let qs = matches.values_of_lossy("questions");
     if let Some(x) = qs {
         run_solutions(x);
     }
+}
+
+fn run_all() {
+    let mut available = Vec::new();
+    for i in 1..=25 {
+        let input_str = format!("{}/input.txt", i);
+        let input_path = Path::new(&input_str);
+        if input_path.exists() {
+            available.push(i);
+        }
+    }
+    run_solutions(available.iter().map(|x| x.to_string()).collect());
 }
 
 fn run_solutions(qs: Vec<String>) {
