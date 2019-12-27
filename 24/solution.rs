@@ -237,8 +237,6 @@ mod question24 {
     }
 
     fn count(state: &[[bool; 5]; 5]) -> u32 {
-        let outer = state.len();
-        let inner = state[0].len();
         let mut total = 0;
         for line in state {
             for &is_bug in line {
