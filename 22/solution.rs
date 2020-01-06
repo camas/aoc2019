@@ -1,38 +1,102 @@
 mod question22 {
-    use std::collections::HashMap;
-
-    const DECK_SIZE: usize = 10007;
 
     pub fn solve(data: Vec<&str>) -> String {
-        // Part 1: Do instructions
-        // Init deck
-        let mut deck: [u32; DECK_SIZE] = [0; DECK_SIZE];
-        for (i, item) in deck.iter_mut().enumerate() {
-            *item = i as u32;
-        }
-        // Parse instructions
-        for line in data.iter() {
+        // Part 1: Shuffle and get index of 2019
+        let i = 2019;
+        let m = 10007;
+        let (a, b) = calc_fn(&data, m);
+        let part1 = (a * i + b) % m;
+
+        // Part 2: Same but bigger deck and repeated a few trillion times
+        let i = 2020;
+        let m = 119_315_717_514_047;
+        let n = 101_741_582_076_661;
+        let (a, b) = calc_fn_rev(&data, m);
+        let i_part = mod_pow(a, n, m) * i;
+        let other_part = mul_mod(
+            mod_pow(a, n, m) - 1,
+            mod_inv(a as i64 - 1, m as i64) as u64,
+            m,
+        ) as u128;
+        let part2 = (i_part as u128 + other_part * b as u128) % m as u128;
+        format!("{} {}", part1, part2)
+    }
+
+    fn calc_fn_rev(lines: &[&str], m: u64) -> (u64, u64) {
+        // Explanation written down on a piece of paper somewhere
+        // Hardest part is doing modular arithmetic with a mix of signed and unsigned integers
+        let mut a = 1;
+        let mut b = 0;
+        for line in lines.iter().rev() {
             if line.starts_with("deal into new stack") {
-                deck = reverse_deck(&deck);
+                a = m - a;
+                b = m - b - 1;
             } else if line.starts_with("cut") {
-                let cut_val = line[4..].parse().unwrap();
-                deck = cut_deck(&deck, cut_val);
+                let j: i64 = line[4..].parse().unwrap();
+                let j_mod = if j < 0 {
+                    (j + m as i64) as u64
+                } else {
+                    j as u64
+                };
+                b = (b + j_mod) % m;
             } else if line.starts_with("deal with increment") {
-                let incr_val = line[20..].parse().unwrap();
-                deck = incr_deck(&deck, incr_val);
+                let j: u64 = line[20..].parse().unwrap();
+                let j_inv = mod_inv(j as i64, m as i64) as u64;
+                a = mul_mod(a, j_inv, m);
+                b = mul_mod(b, j_inv, m);
             } else {
                 unreachable!();
             }
         }
-        let mut part1 = 0;
-        for (i, item) in deck.iter().enumerate() {
-            if *item == 2019 {
-                part1 = i;
-                break;
+        (a, b)
+    }
+
+    fn calc_fn(lines: &[&str], m: u64) -> (u64, u64) {
+        // Explanation written down on a piece of paper somewhere
+        // Hardest part is doing modular arithmetic with a mix of signed and unsigned integers
+        let mut a = 1;
+        let mut b = 0;
+        for line in lines {
+            if line.starts_with("deal into new stack") {
+                a = m - a;
+                b = m - b - 1;
+            } else if line.starts_with("cut") {
+                let j: i64 = line[4..].parse().unwrap();
+                let j_mod = if j < 0 {
+                    (j + m as i64) as u64
+                } else {
+                    j as u64
+                };
+                b = (m + b - j_mod) % m;
+            } else if line.starts_with("deal with increment") {
+                let j: u64 = line[20..].parse().unwrap();
+                a = mul_mod(a, j, m);
+                b = mul_mod(b, j, m);
+            } else {
+                unreachable!();
             }
         }
+        (a, b)
+    }
 
-        format!("{}", part1)
+    // https://rob.co.bb/posts/2019-02-10-modular-exponentiation-in-rust/
+    fn mod_pow(b: u64, e: u64, m: u64) -> u64 {
+        let mut base = b as u128;
+        let mut exp = e as u128;
+        let modulus = m as u128;
+        if modulus == 1 {
+            return 0;
+        }
+        let mut result = 1;
+        base %= modulus;
+        while exp > 0 {
+            if exp % 2 == 1 {
+                result = result * base % modulus;
+            }
+            exp >>= 1;
+            base = base * base % modulus
+        }
+        result as u64
     }
 
     fn mul_mod(mut x: u64, mut y: u64, m: u64) -> u64 {
@@ -68,84 +132,5 @@ mod question22 {
             xy.0 += module;
         }
         xy.0
-    }
-
-    fn reverse_deck(deck: &[u32; DECK_SIZE]) -> [u32; DECK_SIZE] {
-        let mut new = [0; DECK_SIZE];
-        for (i, x) in deck.iter().rev().enumerate() {
-            new[i as usize] = *x;
-        }
-        new
-    }
-
-    fn cut_deck(deck: &[u32; DECK_SIZE], cut_index: i32) -> [u32; DECK_SIZE] {
-        let mut new = [0; DECK_SIZE];
-        for (i, item) in new.iter_mut().enumerate() {
-            let other_index = ((i as i32 + cut_index).rem_euclid(DECK_SIZE as i32)) as usize;
-            *item = deck[other_index];
-        }
-        new
-    }
-
-    fn incr_deck(deck: &[u32; DECK_SIZE], incr_size: usize) -> [u32; DECK_SIZE] {
-        let mut new = [0; DECK_SIZE];
-        for (i, item) in deck.iter().enumerate() {
-            let real_index = (i * incr_size) % DECK_SIZE;
-            new[real_index] = *item;
-        }
-        new
-    }
-
-    #[cfg(test)]
-    mod tests {
-        use super::*;
-
-        #[test]
-        fn test_incr_deck() {
-            let mut data = [0; DECK_SIZE];
-            for (i, item) in data.iter_mut().enumerate() {
-                *item = i as u32;
-            }
-            let incr = incr_deck(&data, 3);
-            assert_eq!(incr[0], 0);
-            assert_eq!(incr[3], 1);
-            assert_eq!(incr[6], 2);
-            assert_eq!(incr[1], 3336);
-        }
-
-        #[test]
-        fn test_cut_deck() {
-            let mut data = [0; DECK_SIZE];
-            for (i, item) in data.iter_mut().enumerate() {
-                *item = i as u32;
-            }
-            let cut = cut_deck(&data, 3);
-            assert_eq!(cut[0], 3);
-            assert_eq!(cut[1], 4);
-            assert_eq!(cut[2], 5);
-            assert_eq!(cut[3], 6);
-            assert_eq!(cut[4], 7);
-            assert_eq!(cut[10006], 2);
-            assert_eq!(cut[10005], 1);
-            assert_eq!(cut[10004], 0);
-            assert_eq!(cut[10003], 10006);
-        }
-
-        #[test]
-        fn test_reverse_deck() {
-            let mut data = [0; DECK_SIZE];
-            for (i, item) in data.iter_mut().enumerate() {
-                *item = i as u32;
-            }
-            let reversed = reverse_deck(&data);
-            assert_eq!(reversed[0], 10006);
-            assert_eq!(reversed[1], 10005);
-            assert_eq!(reversed[2], 10004);
-            assert_eq!(reversed[3], 10003);
-            assert_eq!(reversed[10006], 0);
-            assert_eq!(reversed[10005], 1);
-            assert_eq!(reversed[10004], 2);
-            assert_eq!(reversed[10003], 3);
-        }
     }
 }
